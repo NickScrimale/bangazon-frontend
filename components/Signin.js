@@ -10,17 +10,11 @@ function Signin() {
         height: '90vh',
         padding: '30px',
         margin: '0 auto',
-        backgroundSize: 'cover',
-        backgroundPositionX: 'center',
-        backgroundImage: 'url("/logo.png")',
         zIndex: 1,
         minHeight: '25rem',
         width: '100%',
         minWidth: '30rem',
         paddingBlock: '0 5rem',
-        backgroundColor: 'hsla(0,0%,100%,0.75)',
-        backgroundBlendMode: 'overlay',
-        backgroundRepeat: 'no-repeat',
       }}
     >
       <h1>Hi there!</h1>
