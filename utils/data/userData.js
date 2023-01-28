@@ -18,8 +18,8 @@ const getBangazonUsers = (uid = '') => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const getUserById = (id) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/users/${id}`)
+const getUserById = (userId) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/users/${userId}`)
     .then((response) => response.json())
     .then((data) => {
       resolve({
@@ -36,11 +36,11 @@ const getUserById = (id) => new Promise((resolve, reject) => {
 
 const createUser = (user, post) => new Promise((resolve, reject) => {
   const userObj = {
-    uid: user.uid,
     firstName: post.first_name,
     lastName: post.last_name,
-    image_url: post.image_url,
+    uid: user.uid,
     createdOn: post.created_on,
+    image_url: post.image_url,
   };
   fetch(`${clientCredentials.databaseURL}/users`, {
     method: 'POST',
@@ -56,11 +56,11 @@ const createUser = (user, post) => new Promise((resolve, reject) => {
 const updateUser = (user, put, id) => new Promise((resolve, reject) => {
   const userObj = {
     id: put.id,
-    uid: user.uid,
     firstName: put.first_name,
     lastName: put.last_name,
-    image_url: put.image_url,
+    uid: user.uid,
     createdOn: put.created_on,
+    image_url: put.image_url,
   };
   fetch(`${clientCredentials.databaseURL}/users/${id}`, {
     method: 'PUT',
@@ -84,5 +84,5 @@ const deleteUser = (id) => new Promise((resolve, reject) => {
 
 // eslint-disable-next-line import/prefer-default-export
 export {
-  getBangazonUsers, deleteUser, updateUser, createUser, getUserById,
+  deleteUser, updateUser, createUser, getUserById, getBangazonUsers,
 };

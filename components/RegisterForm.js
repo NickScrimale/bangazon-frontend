@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useAuth } from '../utils/context/authContext';
 import { updateUser } from '../utils/data/userData';
 // eslint-disable-next-line no-unused-vars
 import { registerUser } from '../utils/auth'; // Update with path to registerUser
@@ -17,22 +16,23 @@ const initialState = {
 };
 
 // eslint-disable-next-line no-unused-vars
-function RegisterForm({ obj, updateRegUser }) {
+function RegisterForm({ user, onUpdate }) {
   const [formData, setFormData] = useState(initialState);
-  const { user } = useAuth();
   const router = useRouter();
   // console.warn(obj.id);
 
   useEffect(() => {
-    if (obj.id)setFormData(obj);
-  }, [obj, user]);
+    if (user.id) {
+      setFormData(user);
+    }
+  }, [user, router]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (obj.id) {
+    if (user.id) {
       updateUser(formData).then(() => router.push('/user'));
     } else {
-      registerUser(formData, user).then(() => updateRegUser(user.uid));
+      registerUser(formData, user).then(() => onUpdate(user.uid));
     }
   };
 
@@ -67,14 +67,11 @@ function RegisterForm({ obj, updateRegUser }) {
 }
 
 RegisterForm.propTypes = {
-  obj: PropTypes.shape({
+  user: PropTypes.shape({
     uid: PropTypes.string.isRequired,
     id: PropTypes.number,
   }).isRequired,
-  user: PropTypes.shape({
-    uid: PropTypes.string.isRequired,
-  }).isRequired,
-  updateRegUser: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func,
 };
 
 export default RegisterForm;
